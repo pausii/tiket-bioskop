@@ -18,6 +18,7 @@ Aplikasi ini memiliki beberapa fitur diantaranya yaitu :
     - Logout
 
 - Role Customer:
+    - Daftar
     - Login
     - Lihat daftar film
     - Lihat jadwal film
