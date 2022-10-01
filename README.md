@@ -3,10 +3,10 @@
 Aplikasi pemesanan tiket bioskop berbasis web. 
 
 ## Requirements
+- Docker
 - PHP 8.0+
 - MySQL 5.7+
 - Apache Web Server
-- Docker
 
 ## Installation
 - Clone Repository ini
@@ -84,7 +84,7 @@ cd tiket-bioskop
 </details>
 
 ## License
-this app under MIT License.
+This app under MIT License.
 
 ## Thx
 - *Ankit Hingarajiya* For DeskApp Template
