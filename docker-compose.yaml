@@ -1,0 +1,28 @@
+version: '3.8'
+services:
+  web:
+    build: .
+    ports:
+      - "80:80"
+    depends_on:
+      - app-mariadb
+    networks:
+      - app-network
+  app-mariadb:
+    image: mariadb:latest
+    restart: always
+    environment:
+      - MARIADB_USER:app_user
+      - MARIADB_DATABASE:app_db
+      - MARIADB_PASSWORD:app_pass
+      - MARIADB_ROOT_PASSWORD:app_root_pass
+    networks:
+      - app-network
+    volumes:
+      - ./db_data:/var/lib/mysql
+      - ./database/app.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "3306:3306"
+networks:
+  app-network:
+    driver: bridge
