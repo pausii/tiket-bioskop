@@ -17,12 +17,46 @@ git clone https://github.com/pausii/tiket-bioskop
 ```bash
 cd tiket-bioskop
 ```
-- Mulai Instalasi
-```bash
-./install.sh
-```
-- Buka browser dan ketikkan alamat http://localhost
 
+- buat network app-network
+```sh
+docker network create app-network
+```
+
+- jalankan mariadb container
+```sh
+docker run \
+    --detach \
+    --network app-network \
+    --name app-mariadb \
+    --env MARIADB_USER=app_user \
+    --env MARIADB_DATABASE=app_db \
+    --env MARIADB_PASSWORD=app_pass \
+    --env MARIADB_ROOT_PASSWORD=app_root_pass  \
+    mariadb:latest
+```
+
+- import database
+```sh
+docker exec -i app-mariadb mysql -u app_user -papp_pass app_db < ./database/app.sql
+```
+
+- build docker image
+```sh
+sudo docker build -t ticket_bioskop_app .
+```
+
+- run docker container
+```sh
+sudo docker run \
+    --detach \
+    --network app-network \
+    -p 80:80 ticket_bioskop_app
+```
+
+- Sekarang buka browser dan ketikkan alamat http://localhost
+
+- *Selesai.*
 ## Features
 <details open>
     <summary>Aplikasi ini memiliki beberapa fitur diantaranya yaitu: </summary>
@@ -56,37 +90,45 @@ cd tiket-bioskop
 ## Screenshot
 <details>
     <summary>Screenshot 1</summary>
-    <p><img src="https://i.ibb.co/3h5mB1Q/Screenshot-2022-09-29-15-22-54.png"/></p>
+
+![](https://i.ibb.co/3h5mB1Q/Screenshot-2022-09-29-15-22-54.png")
 </details>
 <details>
     <summary>Screenshot 2</summary>
-    <p><img src="https://i.ibb.co/1sMFJS0/Screenshot-2022-09-29-15-24-42.png"/></p>
+
+![](https://i.ibb.co/1sMFJS0/Screenshot-2022-09-29-15-24-42.png)
+
 </details>
 <details>
-    <summary>Screenshot 3</summary>
-    <p><img src="https://i.ibb.co/dLSsTt0/Screenshot-2022-09-29-15-23-51.png"/></p>
+<summary>Screenshot 3</summary>
+
+![](https://i.ibb.co/dLSsTt0/Screenshot-2022-09-29-15-23-51.png)
 </details>
 <details>
     <summary>Screenshot 4</summary>
-    <p><img src="https://i.ibb.co/pQKz63q/Screenshot-2022-09-29-15-23-39.png"/></p>
+
+![](https://i.ibb.co/pQKz63q/Screenshot-2022-09-29-15-23-39.png")
 </details>
 <details>
     <summary>Screenshot 5</summary>
-    <p><img src="https://i.ibb.co/3fb7B1P/Screenshot-2022-09-29-15-23-07.png"/></p>
+
+![](https://i.ibb.co/3fb7B1P/Screenshot-2022-09-29-15-23-07.png")
 </details>
 <details>
     <summary>Screenshot 6</summary>
-    <p><img src="https://i.ibb.co/4FSmW3r/Screenshot-2022-09-29-15-25-00.png"/></p>
+
+![](https://i.ibb.co/4FSmW3r/Screenshot-2022-09-29-15-25-00.png")
 </details>
 <details>
     <summary>Screenshot 7</summary>
-    <p><img src="https://i.ibb.co/98cKJN1/Screenshot-2022-09-29-15-22-46.png"/></p>
+
+![](https://i.ibb.co/98cKJN1/Screenshot-2022-09-29-15-22-46.png")
 </details>
 
 ## License
 This app under MIT License.
 
-## Thx
+## Thanks
 - *Ankit Hingarajiya* For DeskApp Template
 
 ## Coders

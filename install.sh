@@ -21,10 +21,10 @@ docker exec -i app-mariadb mysql -u app_user -papp_pass app_db < ./database/app.
 # docker run -it --network app-network --rm mariadb mariadb -h app-mariadb -u app_user -papp_pass
 
 # build image
-docker build -t ticket_bioskop_app .
+sudo docker build -t ticket_bioskop_app .
 
 # run 
-docker run \
+sudo docker run \
     --network app-network \
     -p 80:80 ticket_bioskop_app
 
