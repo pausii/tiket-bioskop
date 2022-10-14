@@ -30,7 +30,7 @@ if($_GET['order'] ?? false and $_GET['order'] == 'ticket'){
     $judul_film = $row['judul'];
     $durasi_film = $row['durasi'];
 
-    $q = $db->prepare("INSERT INTO pembelian_tiket values(null,:id_jadwal,:id_user,Null, :total_harga, :tanggal_tayang, :jam, now(), :judul_film, :durasi_film, :harga_per_tiket)");
+    $q = $db->prepare("INSERT INTO pembelian_tiket values(null,:id_jadwal,:id_user,Null, :total_harga, :tanggal_tayang, :jam, $now, :judul_film, :durasi_film, :harga_per_tiket)");
     $q->execute([
         'id_jadwal' => $id_jadwal,
         'id_user' => $_SESSION['id'],

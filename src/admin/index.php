@@ -9,7 +9,12 @@ $total_visitor = ($db->query('SELECT sum(total) as total FROM `visitor_counter`'
 $total_customer = ($db->query("SELECT count(*) as total FROM `users` where sebagai = 'user'"))->fetch()['total'];
 $total_admin = ($db->query("SELECT count(*) as total FROM `users` where sebagai = 'admin'"))->fetch()['total'];
 $total_pendapatan = ($db->query("SELECT sum(total) as total FROM `pembelian_tiket` where status = 'paid'"))->fetch()['total'];
-$total_pendapatan_bulan_ini = ($db->query("SELECT sum(total) as total FROM `pembelian_tiket` where status = 'paid' and month(tanggal) = month(now())"))->fetch()['total'];
+if($database_type == 'sqlite'){
+	// query untuk database sqlite 
+	$total_pendapatan_bulan_ini = ($db->query("SELECT sum(total) as total FROM `pembelian_tiket` where status = 'paid' and strftime('%m', tanggal) = strftime('%m', date('now'))"))->fetch()['total'];
+}else{
+	$total_pendapatan_bulan_ini = ($db->query("SELECT sum(total) as total FROM `pembelian_tiket` where status = 'paid' and month(tanggal) = month(now())"))->fetch()['total'];
+}
 
 // get last 7 day from visitor counter 
 $tgl = date("d");

@@ -5,58 +5,30 @@ Aplikasi pemesanan tiket bioskop berbasis web.
 ## Requirements
 - Docker
 - PHP 8.0+
-- MySQL 5.7+
+- SQLite 3 | ~~MySQL 5.7+~~
 - Apache Web Server
 
 ## Installation
-- Clone Repository ini
+
+- Pull image dari Docker Registry
 ```bash
-git clone https://github.com/pausii/tiket-bioskop
-```
-- pergi ke folder tiket-bioskop
-```bash
-cd tiket-bioskop
+docker pull pausi/tiket-bioskop:1.0
 ```
 
-- buat network app-network
-```sh
-docker network create app-network
-```
-
-- jalankan mariadb container
+- Run docker container
 ```sh
 docker run \
     --detach \
-    --network app-network \
-    --name app-mariadb \
-    --env MARIADB_USER=app_user \
-    --env MARIADB_DATABASE=app_db \
-    --env MARIADB_PASSWORD=app_pass \
-    --env MARIADB_ROOT_PASSWORD=app_root_pass  \
-    mariadb:latest
-```
-
-- import database
-```sh
-docker exec -i app-mariadb mysql -u app_user -papp_pass app_db < ./database/app.sql
-```
-
-- build docker image
-```sh
-sudo docker build -t ticket_bioskop_app .
-```
-
-- run docker container
-```sh
-sudo docker run \
-    --detach \
-    --network app-network \
-    -p 80:80 ticket_bioskop_app
+    -p 80:80 pausi/tiket-bioskop:1.0
 ```
 
 - Sekarang buka browser dan ketikkan alamat http://localhost
 
 - *Selesai.*
+
+## Note
+aplikasi ini menggunakan SQLite sebagai database, sehingga tidak perlu melakukan konfigurasi database. namun jika ingin menggunakan MySQL, silahkan ubah konfigurasi pada file `config.php` dan import `app.sql` ke mysql server.
+
 ## Features
 <details open>
     <summary>Aplikasi ini memiliki beberapa fitur diantaranya yaitu: </summary>
